@@ -1,3 +1,5 @@
+#Old-School Roman Numerals
+
 #Chapter 9 exercises page 81:
 #
 =begin
@@ -15,24 +17,43 @@ I = 1 V = 5 X = 10 L = 50
 C = 100 D = 500 M = 1000
 =end
 
-# SCAFFOLDING AND REFERENCE ONLY; DOES NOT WORK
-
+#Initializations
 num = ''
-until num == 'exit'
-	num = gets.chomp.to_i
-	romnum = ''
-	
+romnum = ''
+
+#Function for finding digits
 =begin
 	num/1000%10 Gets the thousandths digit
 	num/100%10 Gets the hundredths digit
 	num/10%10 Gets the tenths digit
 	num/1%10 Gets the ones digit
 =end
-
-	dig(1,num)%5.times {romnum<<'I'}
-	romnum << 'V' if dig(1,num)/5 != 0
-end
-
 def dig(dig,num)
 	num/dig%10
+end
+
+#Infinitely looping number to Roman Numeral converter.
+while true # No exit condition; add one?
+	num = gets.chomp.to_i
+
+	#This has too much repetition.  DRY!
+
+	#1000s
+	(dig(1000,num)%5).times {romnum<<'M'} # 1000s does not have a "fives" case
+
+	#100s
+	romnum << 'D' if dig(100,num)/5 != 0 # Adds the "fives" case
+	(dig(100,num)%5).times {romnum<<'C'} # Adds the "ones" case
+
+	#10s
+	romnum << 'L' if dig(10,num)/5 != 0 # Ditto for everything else
+	(dig(10,num)%5).times {romnum<<'X'}
+
+	#1s
+	romnum << 'V' if dig(1,num)/5 != 0 
+	(dig(1,num)%5).times {romnum<<'I'} 
+	
+	puts romnum
+	romnum = ''
+
 end
