@@ -1,3 +1,5 @@
+#Practices concepts from chapter 5:
+
 puts "what is your name?"
 name = gets.chomp
 puts "what is your age?"
